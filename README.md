@@ -1,3 +1,12 @@
+### setup instruction
+
+*passport/sessions are not set up make sure to set them up and set up a sessions table
+
+>npm install
+
+to view visual database with prizma: 
+>npx prisma studio --config ./prisma.config.js
+
 ### packages to download:-
 
 node
@@ -10,5 +19,6 @@ connect-pg-simple
 express-session
 passport
 passport-local
+prisma
 
-install command: npm install express express-validation ejs pg bcryptjs connect-pg-simple express-session passport passport-local
+
