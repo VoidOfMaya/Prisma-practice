@@ -1,22 +1,28 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+/* CONFIG BLOCK*/
+//define with  '=' example: key = value  
+// client setting:-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
-
+// data source:-
 datasource db {
   provider = "postgresql"
 }
+
+
+/* sCHEMA BLOCK*/
+//define into columns with  '  ' example: key  Int  value  
+//actual db schema:-
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-  posts Post[]
+  posts Post[] //<== this is relational metadata >tells prisma that user can have many posts
 }
 
 model Post {
@@ -25,5 +31,11 @@ model Post {
   content   String?
   published Boolean @default(false)
   author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  authorId  Int    //^ this is relational metadata >tells prisma post.autherId REFERANCES user.id
+}
+
+
+enum Role{
+  USER
+  ADMIN
 }
