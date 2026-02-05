@@ -1,28 +1,20 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-
-/* CONFIG BLOCK*/
-//define with  '=' example: key = value  
-// client setting:-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["typedSql"]
 }
-// data source:-
+
 datasource db {
   provider = "postgresql"
 }
 
-
-/* sCHEMA BLOCK*/
-//define into columns with  '  ' example: key  Int  value  
-//actual db schema:-
+/// sCHEMA BLOCK
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
+  jobTitle String
   name  String?
-  posts Post[] //<== this is relational metadata >tells prisma that user can have many posts
+  posts Post[]
 }
 
 model Post {
@@ -30,12 +22,6 @@ model Post {
   title     String
   content   String?
   published Boolean @default(false)
+  authorId  Int
   author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int    //^ this is relational metadata >tells prisma post.autherId REFERANCES user.id
-}
-
-
-enum Role{
-  USER
-  ADMIN
 }
